@@ -590,7 +590,7 @@ app.listen(port, () => {
 
 const express = require("express");
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -599,7 +599,8 @@ app.use(express.json());
 app.use(cors());
 
 // DB CONNECT
-mongoose.connect("mongodb://localhost:27017/mern2")
+const mongoURI = process.env.MONGO_URI || process.env.MONGODB_URI || "mongodb://localhost:27017/mern2";
+mongoose.connect(mongoURI)
 .then(() => {
     console.log("DB connected");
 })
